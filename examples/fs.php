@@ -1,31 +1,17 @@
 <?php
+uv_fs_open(uv_default_loop(),__FILE__, UV::O_RDONLY, 0, function($r){
+    uv_fs_read(uv_default_loop(),$r,function($stream, $nread, $data) {
+        if ($nread <= 0) {
+            if ($nread < 0) {
+                throw new Exception("read error");
+            }
 
-function r($rs,$data)
-{
-    global $buf;
-    global $x;
-    $buf .= $data;
-    if ($rs != 0) {
-        if ($rs < 0) {
-            throw new Exception("error");
+            uv_fs_close(uv_default_loop(), $stream, function(){
+            });
+        } else {
+            echo $data;
         }
-        
-        echo "moe";
-        uv_fs_read(uv_default_loop(),$x,"r");
-    } else {
-        var_dump($buf);
-        uv_fs_close(uv_default_loop(), $x,function(){
-        	echo "# closed\n";
-        });
-    }
-
-}
-
-uv_fs_open(uv_default_loop(),__FILE__, 0, 0, function($r){
-    global $x;
-    $x = $r;
-    uv_fs_read(uv_default_loop(),$r,"r");
+    });
 });
-
 
 uv_run();

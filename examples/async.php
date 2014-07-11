@@ -1,8 +1,8 @@
 <?php
 $loop = uv_default_loop();
-$async = uv_async_init($loop, function($status){
+$async = uv_async_init($loop, function($async, $status){
     var_dump(1);
-    uv_unref(uv_default_loop());
+    uv_close($async);
 });
 
 uv_async_send($async);

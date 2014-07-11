@@ -2,31 +2,25 @@
 
 * implement all test cases.
 * improve source code.(avoids copy and paste)
-* error handling
-* make continuous build box (linux and windows)
-* re-consider function signatures. (I'd like to provide libuv same api)
-* adjust config.m4 (currently, this ext supports osx and windows only. i'll fix this soon)
+* more error handling
+* buffer allocator
+* documents
 
-# Not tested
+# Known Issues
 
-* UV_EXTERN int uv_process_kill(uv_process_t*, int signum);
-* UV_EXTERN uv_err_t uv_set_process_title(const char* title);
+* something wrong on OSX box. (corrupted queue, fs event...)
+* windows support (currently, this can build. but not fully tested).
 
-# functions
+# functions (not implemented or not tested)
 
-* UV_EXTERN int uv_read2_start(uv_stream_t*, uv_alloc_cb alloc_cb,uv_read2_cb read_cb);
 * UV_EXTERN int uv_write2(uv_write_t* req, uv_stream_t* handle, uv_buf_t bufs[],int bufcnt, uv_stream_t* send_handle, uv_write_cb cb);
-
 * UV_EXTERN int uv_queue_work(uv_loop_t* loop, uv_work_t* req, uv_work_cb work_cb, uv_after_work_cb after_work_cb);
-* UV_EXTERN char** uv_setup_args(int argc, char** argv);
-
-* UV_EXTERN void uv_once(uv_once_t* guard, void (*callback)(void));
-* UV_EXTERN int uv_thread_create(uv_thread_t *tid,void (*entry)(void *arg), void *arg);
-* UV_EXTERN int uv_thread_join(uv_thread_t *tid);
+* UV_EXTERN int uv_is_closing(const uv_handle_t* handle);
 
 # Not support
 
-* UV_EXTERN uv_handle_type uv_guess_handle(uv_file file);
+* UV_EXTERN void uv_once(uv_once_t* guard, void (*callback)(void));
+we don't support thread. so this function does not need.
 
 * UV_EXTERN uv_buf_t uv_buf_init(char* base, size_t len);
 * UV_EXTERN size_t uv_strlcpy(char* dst, const char* src, size_t size);
@@ -41,3 +35,6 @@
 * UV_EXTERN char** uv_setup_args(int argc, char** argv);
 * UV_EXTERN uv_err_t uv_get_process_title(char* buffer, size_t size);
 * UV_EXTERN uv_err_t uv_set_process_title(const char* title);
+
+* UV_EXTERN int uv_thread_create(uv_thread_t *tid,void (*entry)(void *arg), void *arg);
+* UV_EXTERN int uv_thread_join(uv_thread_t *tid);
